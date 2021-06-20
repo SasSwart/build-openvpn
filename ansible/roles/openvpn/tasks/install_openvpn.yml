@@ -1,0 +1,5 @@
+- name: "Install OpenVPN"
+  apt:
+    name: "{{ openvpn_packages }}"
+    cache_valid_time: 3600
+    state: "latest"

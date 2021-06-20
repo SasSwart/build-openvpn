@@ -1,0 +1,4 @@
+all:
+  hosts:
+    openvpn.ninjhah.co.za:
+    ca.ninjhah.co.za:

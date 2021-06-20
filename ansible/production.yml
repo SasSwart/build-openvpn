@@ -1,0 +1,11 @@
+---
+  - hosts: ca.ninjhah.co.za
+    become: true
+    roles:
+    - role: openvpn_base
+    - role: ca
+  - hosts: openvpn.ninjhah.co.za
+    become: true
+    roles:
+    - role: openvpn_base
+    - role: openvpn

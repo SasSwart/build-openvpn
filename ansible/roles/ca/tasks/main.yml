@@ -1,0 +1,81 @@
+- name: Create Root CA Private dir
+  file:
+    path: ca/root-ca/private
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Root CA DB dir
+  file:
+    path: ca/root-ca/db
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Root CA crl dir
+  file:
+    path: crl
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Root CA certs dir
+  file:
+    path: certs
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Copy Root CA Config
+  template:
+    src: ./root-ca.cnf
+    dest: ~/root-ca.cnf
+    owner: root
+    group: root
+    mode: '0440'
+- name: Create root ca
+  ansible.builtin.script: ./create_root_ca.sh
+  args:
+    creates: ~/ca/root-ca/db/root-ca.db
+
+- name: Create Signing CA Private dir
+  file:
+    path: ca/signing-ca/private
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Signing CA DB dir
+  file:
+    path: ca/signing-ca/db
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Signing CA crl dir
+  file:
+    path: crl
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Create Signing CA certs dir
+  file:
+    path: certs
+    state: directory
+    recurse: true
+    mode: '0700'
+- name: Copy Signing CA Config
+  template:
+    src: ./signing-ca.cnf
+    dest: ~/signing-ca.cnf
+    owner: root
+    group: root
+    mode: '0440'
+- name: Create signing ca
+  ansible.builtin.script: ./create_signing_ca.sh
+  args:
+    creates: ~/ca/signing-ca/db/signing-ca.db
+
+- name: Copy Server Cert Config
+  template:
+    src: ./server-cert.cnf
+    dest: ~/server-cert.cnf
+    owner: root
+    group: root
+    mode: '0440'
+- name: Sign Server certificate
+  ansible.builtin.script: ./sign_server_cert.sh
